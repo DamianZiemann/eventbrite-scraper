@@ -66,20 +66,6 @@ def fetch_venue_data(venue_id):
         log(f"Failed to fetch venue data for venue ID {venue_id}: {response.status_code}", level="ERROR")
         return None
 
-def fetch_category_data(category_id):
-    """Fetch category data from the Eventbrite API for a given category ID."""
-    url = f"https://www.eventbriteapi.com/v3/categories/{category_id}/"
-    headers = {
-        "Authorization": f"Bearer {EVENTBRITE_API_KEY}",
-        "Accept": "application/json"
-    }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        log(f"Failed to fetch category data for category ID {category_id}: {response.status_code}", level="ERROR")
-        return None
-
 # Utility Functions
 def split_address(address):
     """Split an address into street and street number."""
@@ -106,14 +92,12 @@ def insert_full_event(event_data, organizer_id):
     description = event_data.get("description", {}).get("text")
     ticket_url = event_data.get("url")
     free_event = event_data.get("is_free")
-    category_id = event_data.get("category_id")
     venue_id = event_data.get("venue_id")
     host_id = get_pitchload_id(organizer_id)  # Fetch the pitchload_id
     host_name = event_data.get("organizer", {}).get("name")
 
     # Fetch additional data
     venue_data = fetch_venue_data(venue_id) if venue_id else {}
-    category_data = fetch_category_data(category_id) if category_id else {}
 
     # Extract venue details
     full_address = venue_data.get("address", {}).get("address_1")
@@ -123,20 +107,17 @@ def insert_full_event(event_data, organizer_id):
     address_state = venue_data.get("address", {}).get("region")
     address_venue_name = venue_data.get("name")
 
-    # Extract category details
-    categories = category_data.get("name")
-
     try:
         cursor.execute("""
             INSERT OR IGNORE INTO full_events (
                 event_id, organizer_id, title, date, start, end, summary, description,
-                ticket_url, free_event, categories, target_groups, host_id, host_name,
+                ticket_url, free_event, target_groups, host_id, host_name,
                 address_street, address_street_number, address_postal_code, address_city,
                 address_state, address_venue_name, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             event_id, organizer_id, title, date, start, end, summary, description,
-            ticket_url, free_event, categories, None, host_id, host_name,
+            ticket_url, free_event, None, host_id, host_name,
             address_street, address_street_number, address_postal_code, address_city,
             address_state, address_venue_name, "copied"
         ))
