@@ -1,7 +1,8 @@
 import os
 import sqlite3
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
+import json
 
 # Load environment variables from .env
 load_dotenv(os.path.join(os.path.dirname(__file__), "../backend/.env"))
@@ -10,8 +11,8 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY is missing in the .env file.")
 
-# Configure OpenAI API
-openai.api_key = OPENAI_API_KEY
+# Configure OpenAI API client
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Database file path
 DATABASE = os.path.join(os.path.dirname(__file__), "../backend/eventbrite_scraper.db")
@@ -58,17 +59,28 @@ def generate_missing_values(title, summary, description):
     - categories: a list of valid categories
     """
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # Verwende das gpt-4o-mini Modell
             messages=[
                 {"role": "system", "content": "You are an assistant that generates valid target groups and categories for events."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=300
         )
-        # Extract the content from the response
-        generated_data = response['choices'][0]['message']['content']
-        return eval(generated_data)  # Convert the JSON string to a Python dictionary
+        # Debugging: Log the raw response
+        raw_response = response.choices[0].message.content
+        print(f"Raw OpenAI Response: {raw_response}")
+        
+        # Remove code block markers if present
+        if raw_response.startswith("```") and raw_response.endswith("```"):
+            raw_response = raw_response.strip("```").strip("json").strip()
+        
+        # Parse the response content as JSON
+        generated_data = json.loads(raw_response)
+        return generated_data  # Return the parsed JSON object
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
+        return {"target_groups": [], "categories": []}
     except Exception as e:
         print(f"Error generating missing values: {e}")
         return {"target_groups": [], "categories": []}
