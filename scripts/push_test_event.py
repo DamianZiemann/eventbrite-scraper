@@ -6,7 +6,7 @@ try:
         headers={
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {"rxMXX84jMZMpepKJSVauMHFNExvULrcE"}"
+            "Authorization": f"Bearer {""}"
         },
     )
 

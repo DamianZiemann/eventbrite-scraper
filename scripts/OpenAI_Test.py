@@ -4,7 +4,7 @@ import requests
 url = "https://api.openai.com/v1/chat/completions"
 
 # Dein API-Schlüssel
-api_key = "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"
+api_key = ""
 
 # Header mit Authorization
 headers = {
@@ -14,7 +14,7 @@ headers = {
 
 # Daten für den POST-Request
 data = {
-    "model": "gpt-4o-mini",  # Ändere zu "gpt-3.5-turbo", falls du keinen Zugriff auf GPT-4 hast
+    "model": "gpt-4o-mini", 
     "messages": [
         {"role": "system", "content": "You are an assistant that generates bedtime stories."},
         {"role": "user", "content": "Tell me a three sentence bedtime story about a unicorn."}
