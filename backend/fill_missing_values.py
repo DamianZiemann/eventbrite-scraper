@@ -14,7 +14,7 @@ if not OPENAI_API_KEY:
 # Configure OpenAI API client
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-# Database file path
+# Database file path (nur hier geändert!)
 DATABASE = os.path.join(os.path.dirname(__file__), "../backend/eventbrite_scraper.db")
 
 # Valid values for target_groups and categories
@@ -28,12 +28,12 @@ VALID_CATEGORIES = [
 ]
 
 def get_rows_with_missing_values():
-    """Fetch rows with missing target_groups or categories from the full_events table."""
+    """Fetch rows with missing target_groups or categories from the events table."""
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     query = """
         SELECT id, title, summary, description
-        FROM full_events
+        FROM events
         WHERE target_groups IS NULL OR categories IS NULL
     """
     cursor.execute(query)
@@ -86,11 +86,11 @@ def generate_missing_values(title, summary, description):
         return {"target_groups": [], "categories": []}
 
 def update_row_in_database(row_id, target_groups, categories):
-    """Update a row in the full_events table with generated target_groups, categories, and status."""
+    """Update a row in the events table with generated target_groups, categories, and status."""
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     query = """
-        UPDATE full_events
+        UPDATE events
         SET target_groups = ?, categories = ?, status = ?
         WHERE id = ?
     """
@@ -104,7 +104,7 @@ def update_row_in_database(row_id, target_groups, categories):
     conn.close()
 
 def fill_missing_values():
-    """Main function to fill missing values in the full_events table."""
+    """Main function to fill missing values in the events table."""
     rows = get_rows_with_missing_values()
     for row in rows:
         row_id, title, summary, description = row

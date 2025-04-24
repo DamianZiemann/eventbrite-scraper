@@ -23,7 +23,7 @@ def get_organizer_links():
     """Fetch organizer URLs and IDs from the database."""
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, url FROM organizers")
+    cursor.execute("SELECT id, eventbrite_url FROM organizers")
     organizers = cursor.fetchall()
     conn.close()
     return organizers
@@ -36,8 +36,8 @@ def insert_event_ids(event_ids, organizer_id):
     for event_id in event_ids:
         try:
             cursor.execute("""
-                INSERT OR IGNORE INTO eventbrite_ids (eventbrite_id, organizer_id) 
-                VALUES (?, ?)
+                INSERT OR IGNORE INTO scraped_event_ids (event_id, organizer_id, scraped_at, processed) 
+                VALUES (?, ?, CURRENT_TIMESTAMP, 0)
             """, (event_id, organizer_id))
         except sqlite3.Error as e:
             logging.error(f"Error inserting event ID {event_id} for organizer ID {organizer_id}: {e}")
