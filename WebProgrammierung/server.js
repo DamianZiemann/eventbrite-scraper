@@ -38,7 +38,7 @@ app.get('/news', async (req, res) => {
     startDate.setDate(today.getDate() - 18);
 
     const startDateString = startDate.toISOString().split('T')[0];
-    const url = `https://newsapi.org/v2/everything?q=Start-Up&from=${startDateString}&sortBy=${sortBy}&language=de&apiKey=${newsApiKey}`;
+    const url = `https://newsapi.org/v2/everything?q=Business&from=${startDateString}&sortBy=${sortBy}&language=en&apiKey=${newsApiKey}`;
 
     const config = {
       headers: {

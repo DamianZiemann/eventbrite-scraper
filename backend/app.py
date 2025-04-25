@@ -6,7 +6,7 @@ import validators
 
 # Initialize Flask application
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, methods=["GET", "POST", "DELETE"])  # Enable CORS for frontend communication
+CORS(app, resources={r"/*": {"origins": "*"}}, methods=["GET", "POST", "DELETE"])
 
 # Database file path
 DATABASE = os.path.join(os.path.dirname(__file__), "eventbrite_scraper.db")
@@ -23,9 +23,51 @@ def health_check():
     """Health check endpoint."""
     return jsonify({"status": "ok"}), 200
 
+# ---------------------------------------------
+# ✅ NEUE ROUTE: Events für Liste
+@app.route("/events", methods=["GET"])
+def get_all_events():
+    """Get all events for the frontend list."""
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            query = """
+                SELECT title, date, start, end, 
+                       address_street, address_street_number, address_city, 
+                       description, is_free, image
+                FROM full_events
+            """
+            cursor.execute(query)
+            rows = cursor.fetchall()
+
+        events = []
+        for row in rows:
+            start_time = row[2] or ""
+            end_time = row[3] or ""
+            time = f"{start_time}-{end_time}" if end_time else start_time
+
+            location = f"{row[6]}, {row[4]} {row[5]}"  # z.B. "Karlsruhe, Griesbachstraße 10"
+
+            events.append({
+                "title": row[0],
+                "date": row[1],
+                "time": time,
+                "location": location,
+                "description": row[7],
+                "isFree": bool(row[8]),
+                "image": row[9] or "/placeholder.jpg"
+            })
+
+        return jsonify(events)
+    except Exception as e:
+        print("❌ Error fetching events:", e)
+        return jsonify({"error": str(e)}), 500
+
+# ---------------------------------------------
+# Organizer-Endpoints (bereits vorhanden, bleibt gleich)
+
 @app.route("/organizers", methods=["POST"])
 def add_organizer():
-    """Add a new organizer."""
     try:
         data = request.get_json()
         name = data.get("name")
@@ -48,7 +90,6 @@ def add_organizer():
 
 @app.route("/organizers", methods=["GET"])
 def get_organizers():
-    """Get all organizers."""
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
@@ -70,7 +111,6 @@ def get_organizers():
 
 @app.route("/organizers/<int:organizer_id>", methods=["DELETE"])
 def delete_organizer(organizer_id):
-    """Delete an organizer."""
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
@@ -89,7 +129,6 @@ def delete_organizer(organizer_id):
 
 @app.route("/organizers/<int:organizer_id>/events", methods=["GET"])
 def get_events_for_organizer(organizer_id):
-    """Get events for a specific organizer."""
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
@@ -117,6 +156,40 @@ def get_events_for_organizer(organizer_id):
         ])
     except Exception as e:
         print(f"Error fetching events for organizer {organizer_id}: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/events/map", methods=["GET"])
+def get_events_for_map():
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            query = """
+                SELECT title,date, start, end,
+                       address_street, address_street_number, address_city, 
+                       description
+                FROM full_events
+            """
+            cursor.execute(query)
+            rows = cursor.fetchall()
+#                 SELECT latitude, longitude, title
+ #               FROM full_events
+       #         WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+        return jsonify([
+            {
+                #"coords": [row[1], row[0]],  # [lng, lat] for Maplibre
+                #"text": row[2]
+                "title": row[0],
+                "date": row[1],
+                "start": row[2],
+                "end": row[3],
+                "address_street": row[4],
+                "address_street_number": row[5],
+                "address_city": row[6],
+                "description": row[7],                      
+            } for row in rows
+        ])
+    except Exception as e:
+        print("Error while fetching map events:", e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":

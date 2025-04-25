@@ -14,7 +14,7 @@
         <ul>
             <li><a href="/">News</a></li>
             <li><a href="/map">Map</a></li>
-            <li><a href="/Liste">Liste</a></li>
+            <li><a href="/Liste">List</a></li>
         </ul>
     </nav>
   </header>

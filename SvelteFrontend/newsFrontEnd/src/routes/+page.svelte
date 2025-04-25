@@ -61,7 +61,7 @@
 </script>
 
 <header class="header">
-  <button class="menu-icon" aria-label="Menü öffnen" on:click={() => menuOpen = !menuOpen}>
+  <button class="menu-icon" aria-label="Open Menu" on:click={() => menuOpen = !menuOpen}>
     ☰
   </button>
   <div class="logo">Pitchload</div>
@@ -69,21 +69,21 @@
     <ul>
       <li><a href="/">News</a></li>
       <li><a href="/map">Map</a></li>
-      <li><a href="/Liste">Liste</a></li>
+      <li><a href="/Liste">List</a></li>
     </ul>
   </nav>
 </header>
 
 <div class="filter-buttons">
-  <button on:click={() => filter = 'popularity'} class:active={filter === 'popularity'}>Beliebtheit</button>
-  <button on:click={() => filter = 'newest'} class:active={filter === 'newest'}>Neueste</button>
-  <button on:click={() => filter = 'oldest'} class:active={filter === 'oldest'}>Älteste</button>
-  <button on:click={() => filter = 'abc'} class:active={filter === 'abc'}>A-Z</button>
+  <button on:click={() => filter = 'popularity'} class:active={filter === 'popularity'}>Popularity</button>
+  <button on:click={() => filter = 'newest'} class:active={filter === 'newest'}>Newest</button>
+  <button on:click={() => filter = 'oldest'} class:active={filter === 'oldest'}>Oldest</button>
+  <button on:click={() => filter = 'abc'} class:active={filter === 'abc'}>Alphabetically</button>
 </div>
 
 {#if summary}
   <div class="summary-box">
-    <h2>Top News Zusammenfassung</h2>
+    <h2>News Summary</h2>
     <p>{summary}</p>
   </div>
 {/if}
