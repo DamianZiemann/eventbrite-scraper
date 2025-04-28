@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const { spawn } = require('child_process'); // 🆕 Child Process importieren
 
 const app = express();
 const port = 3000;
@@ -11,6 +12,23 @@ const newsApiKey = '59a116712fc94d10b941b16debd25d20'; // NewsAPI Key
 const huggingFaceApiKey = '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'; // Hugging Face API Key
 const sortBy = 'relevancy';
 const userAgent = 'StartupEventFinder';
+
+// 🆕 Python Backend starten
+const pythonBackend = spawn('python', ['../backend/app.py']);
+
+// Python-Logs anzeigen
+pythonBackend.stdout.on('data', (data) => {
+  console.log(`Python stdout: ${data}`);
+});
+
+pythonBackend.stderr.on('data', (data) => {
+  console.error(`Python stderr: ${data}`);
+});
+
+// Falls Python-Backend abstirbt
+pythonBackend.on('close', (code) => {
+  console.log(`Python process exited with code ${code}`);
+});
 
 async function summarizeText(text) {
   try {
@@ -53,16 +71,13 @@ app.get('/news', async (req, res) => {
       return res.json({ summary: 'Keine Nachrichten gefunden.', articles: [] });
     }
 
-    // 1️⃣ Erste 5 Artikel holen und Texte kombinieren
     const topArticles = articles.slice(0, 3);
     const combinedText = topArticles.map(a => 
       `Titel: ${a.title}. Beschreibung: ${a.description || 'Keine Beschreibung verfügbar.'}`
     ).join(' ');
 
-    // 2️⃣ Nachrichten zusammenfassen
     const summary = await summarizeText(combinedText);
 
-    // 3️⃣ Rückgabe: Zusammenfassung + alle Artikel
     res.json({ summary, articles });
   } catch (error) {
     console.error('Fehler beim Abrufen der News:', error.message);
@@ -71,10 +86,5 @@ app.get('/news', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server läuft auf Port ${port}`);
+  console.log(`Node.js Server läuft auf Port ${port}`);
 });
-
-
-
-
-
