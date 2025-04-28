@@ -198,6 +198,57 @@ Ensure the following are installed on your system:
 3. **`events`**
    - Stores detailed event data, including enriched fields like `categories` and `target_groups`.
 
+#### Database Schema Diagram
+
+```mermaid
+erDiagram
+    ORGANIZERS {
+        INTEGER id
+        TEXT name
+        TEXT eventbrite_url
+        TEXT pitchload_id
+        DATETIME created_at
+    }
+    SCRAPED_EVENT_IDS {
+        INTEGER id
+        TEXT event_id
+        INTEGER organizer_id
+        DATETIME scraped_at
+        BOOLEAN processed
+    }
+    EVENTS {
+        INTEGER id
+        TEXT event_id
+        INTEGER organizer_id
+        TEXT title
+        TEXT date
+        TEXT start_time
+        TEXT end_time
+        TEXT summary
+        TEXT description
+        TEXT ticket_url
+        BOOLEAN is_free
+        TEXT host_id
+        TEXT host_name
+        TEXT address_street
+        TEXT address_street_number
+        TEXT address_postal_code
+        TEXT address_city
+        TEXT address_state
+        TEXT address_venue_name
+        REAL latitude
+        REAL longitude
+        TEXT categories
+        TEXT target_groups
+        TEXT status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    ORGANIZERS ||--o{ SCRAPED_EVENT_IDS : "has"
+    ORGANIZERS ||--o{ EVENTS : "organizes"
+```
+
 ---
 
 ## Next Steps
