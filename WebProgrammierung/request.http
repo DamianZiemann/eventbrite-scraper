@@ -1,0 +1,1 @@
+GET https://newsapi.org/v2/everything?q=Start-Up&from=2025-02-01&sortBy=popularity&apiKey=59a116712fc94d10b941b16debd25d20
