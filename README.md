@@ -19,7 +19,9 @@ This project demonstrates the integration of web scraping, API consumption, mach
    - [Backend Scripts](#backend-scripts)
    - [Frontend Components](#frontend-components)
    - [Database Schema](#database-schema)
-5. [Next Steps](#next-steps)
+5. [APIs Used](#apis-used)
+6. [Next Steps](#next-steps)
+7. [Contributors and Project Details](#contributors-and-project-details)
 
 ---
 
@@ -42,6 +44,11 @@ Ensure the following are installed on your system:
    - Navigate to the `backend` directory:
      ```bash
      cd backend
+     ```
+   - *(Optional)* Set up a Python virtual environment:
+     ```bash
+     python -m venv venv
+     source venv/bin/activate  # On Windows: venv\Scripts\activate
      ```
    - Install Python dependencies:
      ```bash
@@ -109,6 +116,7 @@ Ensure the following are installed on your system:
 | sqlite3              | Built-in     | Database management                       |
 | selenium             | 4.29.0      | Web scraping                              |
 | Flask-CORS           | 5.0.1        | Cross-Origin Resource Sharing             |
+| OpenStreetMaps API   | N/A          | Displaying events on a map               |
 
 ---
 
@@ -152,6 +160,7 @@ Ensure the following are installed on your system:
 
 #### Frontend Presentation
 - Events and news are displayed in the custom frontend.
+- The OpenStreetMaps API is used to display event locations on an interactive map.
 
 ---
 
@@ -251,6 +260,30 @@ erDiagram
 
 ---
 
+## APIs Used
+
+### Eventbrite API
+- **Purpose**: Fetches event details such as title, date, location, and description.
+- **Usage**: Used in `eventbrite_fetch.py` to retrieve event data.
+
+### OpenAI API
+- **Purpose**: Enriches event data by generating missing fields like `categories` and `target_groups`. Also used for summarizing startup news.
+- **Usage**: Used in `fill_missing_values.py` and the news aggregation pipeline.
+
+### Pitchload API
+- **Purpose**: Exports processed event data to the Pitchload startup database.
+- **Usage**: Used in `push_events_to_pitchload.py` to send enriched event data.
+
+### News API
+- **Purpose**: Aggregates startup-related news from Baden-Württemberg.
+- **Usage**: Used in the news aggregation pipeline to fetch relevant articles.
+
+### OpenStreetMaps API
+- **Purpose**: Displays event locations on an interactive map.
+- **Usage**: Integrated into the frontend to provide a visual representation of event locations.
+
+---
+
 ## Next Steps
 
 ### Database Normalization
@@ -264,3 +297,16 @@ As the next major feature, we will develop a scraper for **Luma**, another event
 
 By implementing these steps, we aim to enhance the functionality, scalability, and reliability of the Eventbrite Scraper Pipeline.
 
+---
+
+## Contributors and Project Details
+
+### Contributors
+- **Damian Ziemann**
+- **Jana Bröckel**
+- **Jana Schäfer**
+
+### Project Information
+- **Module**: Entwicklung Verteilter Systeme  
+- **Lecturer**: Perrot Cedric  
+- **University**: DHBW Stuttgart  
