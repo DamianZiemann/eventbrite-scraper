@@ -58,12 +58,17 @@ Ensure the following are installed on your system:
      ```bash
      python scripts/database.py
      ```
-   - Set up the `.env` file:
-     - Create a `.env` file in the backend directory with the following variables:
+   - **Set Up the `.env` File**:
+     - Obtain the following API keys:
+       - Eventbrite API Key
+       - Pitchload API Key
+       - OpenAI API Key
+     - Create a `.env` file in the `backend` directory and add the keys in the following format:
        ```env
        EVENTBRITE_API_KEY=your_eventbrite_api_key
-       OPENAI_API_KEY=your_openai_api_key
        PITCHLOAD_API_KEY=your_pitchload_api_key
+       OPENAI_API_KEY=your_openai_api_key
+       NEWS_API_KEY=your_news_api_key
        ```
 
 3. **Run the Backend**
@@ -73,9 +78,9 @@ Ensure the following are installed on your system:
      ```
 
 4. **Set Up the Frontend**
-   - Navigate to the frontend directory:
+   - Navigate to the sveltefrontend directory:
      ```bash
-     cd ../frontend
+     cd ../sveltefrontend
      ```
    - Install dependencies (if using a Svelte-based setup):
      ```bash
@@ -132,12 +137,10 @@ Ensure the following are installed on your system:
 │   ├── fill_missing_values.py     # Enriches data using OpenAI LLM
 │   ├── push_events_to_pitchload.py # Pushes processed events to Pitchload
 ├── frontend
-│   ├── admin.html                 # Admin dashboard for managing events
-│   ├── admin.js                   # Admin dashboard logic
-│   ├── home.html                  # Homepage for events
-│   ├── home.js                    # Homepage logic
-│   ├── news.html                  # News page for startup news
-│   └── news.js                    # News page logic
+│   ├── home                       # Homepage lists events and news
+│   ├── news                       # News page for startup news
+│   ├── map                        # Map view page for startup events
+│   ├── list                       # Lists all StartUp Events
 ├── scripts
 │       └── database.py            # Creates and manages database schema
 ├── requirements.txt               # Python dependencies
@@ -309,4 +312,4 @@ By implementing these steps, we aim to enhance the functionality, scalability, a
 ### Project Information
 - **Module**: Entwicklung Verteilter Systeme  
 - **Lecturer**: Perrot Cedric  
-- **University**: DHBW Stuttgart  
+- **University**: DHBW Stuttgart
