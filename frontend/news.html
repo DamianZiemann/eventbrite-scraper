@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startup News - Event Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: whitesmoke;
+      color: #333;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #816c94;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    nav a:hover {
+      background-color: #6b5a7e;
+    }
+
+    section {
+      padding: 1rem;
+      margin: 1rem auto;
+      max-width: 800px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    p {
+      color: #555;
+    }
+
+    .news-container {
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 1rem;
+    }
+
+    .news-article {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1rem;
+    }
+
+    .news-article h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .news-article p {
+      margin: 0.5rem 0;
+    }
+
+    .news-article a {
+      color: #816c94;
+      text-decoration: none;
+    }
+
+    .news-article a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Startup News</h1>
+  </header>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="map.html">Map</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+  <section id="news">
+    <h2>Latest Startup News</h2>
+    <div class="news-container" id="news-articles">
+      <!-- News articles will be dynamically loaded here -->
+    </div>
+  </section>
+  <script src="news.js"></script>
+</body>
+</html>

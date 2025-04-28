@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Event Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: whitesmoke;
+      color: #333;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #816c94;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    nav a:hover {
+      background-color: #816c94;
+    }
+
+    section {
+      padding: 1rem;
+      margin: 1rem auto;
+      max-width: 800px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    p {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Event Manager</h1>
+  </header>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="map.html">Map</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+  <section id="welcome">
+    <h2>Hello!</h2>
+    <p>Welcome to the Event Manager. Here you can find upcoming events and stay updated with the latest news.</p>
+  </section>
+  <section id="events">
+    <h2>Upcoming Events</h2>
+    <ul id="event-list">
+      <!-- Events will be dynamically loaded here -->
+    </ul>
+  </section>
+  <section id="news">
+    <h2>Today's News</h2>
+    <p id="news-summary">Loading news summary...</p>
+  </section>
+  <script src="home.js"></script>
+</body>
+</html>

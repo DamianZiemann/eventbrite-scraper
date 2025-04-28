@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Pitchload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: whitesmoke;
+      color: #333;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #816c94;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    nav a:hover {
+      background-color: #6b5a7e;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    form input, form button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form button {
+      background-color: #816c94;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #816c94;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 0.8rem;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .event-count {
+      font-weight: bold;
+      color: #816c94;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin - Pitchload</h1>
+  </header>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="map.html">Map</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+  <main>
+    <h1>Add Organizer</h1>
+    <form id="add-organizer-form">
+      <input type="text" id="organizer-name" placeholder="Organizer Name" required>
+      <input type="url" id="eventbrite-link" placeholder="Eventbrite Link" required>
+      <input type="text" id="organizer-id" placeholder="Organizer ID" required>
+      <button type="submit">Add Organizer</button>
+    </form>
+
+    <h1>All Organizers</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Organizer Name</th>
+          <th>Eventbrite Link</th>
+          <th>Organizer ID</th>
+          <th>Event Count</th>
+        </tr>
+      </thead>
+      <tbody id="organizer-list">
+        <!-- Organizers will be dynamically loaded here -->
+      </tbody>
+    </table>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>
