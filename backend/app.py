@@ -10,7 +10,7 @@ CORS(app, resources={r"/*": {"origins": "*"}}, methods=["GET", "POST", "DELETE"]
 
 # Database file path
 DATABASE = os.path.join(os.path.dirname(__file__), "eventbrite_scraper.db")
-print("📦 Current database file:", os.path.abspath(DATABASE))
+print("Current database file:", os.path.abspath(DATABASE))
 
 def get_db_connection():
     """Helper function to get a database connection with foreign key support."""
