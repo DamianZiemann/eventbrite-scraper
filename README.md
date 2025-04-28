@@ -1,4 +1,4 @@
-# Eventbrite Scraper Pipeline
+# Eventbrite Scraper
 
 ## Introduction
 
