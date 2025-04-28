@@ -158,16 +158,16 @@ def get_events_for_organizer(organizer_id):
         print(f"Error fetching events for organizer {organizer_id}: {e}")
         return jsonify({"error": str(e)}), 500
 
-@app.route("/events/map", methods=["GET"])
-def get_events_for_map():
+@app.route("/events/all")
+def get_list_of_events():
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
             query = """
-                SELECT title,date, start, end,
+                SELECT title,date, start_time, end_time,
                        address_street, address_street_number, address_city, 
                        description
-                FROM full_events
+                FROM events
             """
             cursor.execute(query)
             rows = cursor.fetchall()
@@ -191,6 +191,29 @@ def get_events_for_map():
     except Exception as e:
         print("Error while fetching map events:", e)
         return jsonify({"error": str(e)}), 500
+
+
+@app.route("/events/map", methods=["GET"])
+def get_events_for_map():
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            query = """
+                SELECT title, latitude, longitude
+                FROM events
+                WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+            """
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return jsonify([
+                    {
+                        "title": row[0],
+                        "latitude": row[1],
+                        "longitude":row[2],                
+                    } for row in rows
+                ])
+    except Exception as e:
+        print("Error while fetching map events:", e)
 
 if __name__ == "__main__":
     app.run(debug=True)

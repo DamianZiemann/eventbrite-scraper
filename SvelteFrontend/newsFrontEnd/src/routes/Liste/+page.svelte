@@ -12,7 +12,7 @@
 		let city_all = [];
 		let description_all = [];
 		try {
-			const response = await fetch('http://127.0.0.1:5000/events/map');
+			const response = await fetch('http://127.0.0.1:5000/events/all');
 
 			if (!response.ok) {
 				throw new Error('API responded with an error');
