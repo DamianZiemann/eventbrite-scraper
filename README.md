@@ -131,8 +131,6 @@ Ensure the following are installed on your system:
 │   ├── eventbrite_scraper.db      # SQLite database
 │   ├── fill_missing_values.py     # Enriches data using OpenAI LLM
 │   ├── push_events_to_pitchload.py # Pushes processed events to Pitchload
-│   └── scripts
-│       └── database.py            # Creates and manages database schema
 ├── frontend
 │   ├── admin.html                 # Admin dashboard for managing events
 │   ├── admin.js                   # Admin dashboard logic
@@ -140,6 +138,8 @@ Ensure the following are installed on your system:
 │   ├── home.js                    # Homepage logic
 │   ├── news.html                  # News page for startup news
 │   └── news.js                    # News page logic
+├── scripts
+│       └── database.py            # Creates and manages database schema
 ├── requirements.txt               # Python dependencies
 ```
 
