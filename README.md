@@ -191,9 +191,9 @@ Ensure the following are installed on your system:
   - `update_event_host_id()`: Updates the database after a successful push.
 
 ### Frontend Components
-- **`home.html` and `home.js`**: Display events on the homepage.
-- **`news.html` and `news.js`**: Display summarized startup news.
-- **`admin.html` and `admin.js`**: Admin dashboard for managing events.
+- **`home.html`**: Display events on the homepage.
+- **`news.html`**: Display summarized startup news.
+- **`map.html`**: Display startup events in Mapview.
 
 ---
 
