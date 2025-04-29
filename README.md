@@ -1,8 +1,8 @@
-# Eventbrite Scraper
+# FoundUp
 
 ## Introduction
 
-The **Eventbrite Scraper Pipeline** is a university project designed to automate the process of collecting, enriching, and exporting event data. The pipeline integrates multiple technologies and APIs to scrape event data from Eventbrite, enrich it using the Eventbrite API and OpenAI's LLM, and export the processed data to **Pitchload**, a startup database. Additionally, the project aggregates and summarizes startup news from Baden-Württemberg using a news API and OpenAI's LLM. The processed events and news are presented via a custom **frontend** built with Svelte, HTML, and JavaScript.
+The **FoundUp** is a university project designed to automate the process of collecting, enriching, and exporting event data. The pipeline integrates multiple technologies and APIs to scrape event data from Eventbrite, enrich it using the Eventbrite API and OpenAI's LLM, and export the processed data to **Pitchload**, a startup database. Additionally, the project aggregates and summarizes startup news using a news API and OpenAI's LLM. The processed events and news are presented via a custom **frontend** built with Svelte, HTML, and JavaScript.
 
 This project demonstrates the integration of web scraping, API consumption, machine learning, and frontend development in a cohesive pipeline.
 
@@ -41,9 +41,9 @@ Ensure the following are installed on your system:
    - Extract the provided compressed folder to your desired location.
 
 2. **Set Up the Backend**
-   - Navigate to the `backend` directory:
+   - Navigate to the `WebProgrammierung` directory:
      ```bash
-     cd backend
+     cd WebProgrammierung
      ```
    - *(Optional)* Set up a Python virtual environment:
      ```bash
@@ -72,15 +72,15 @@ Ensure the following are installed on your system:
        ```
 
 3. **Run the Backend**
-   - Start the Flask or FastAPI server:
+   - Start the Flask or FastAPI server and the Node Server:
      ```bash
-     python app.py
+     node server.js
      ```
 
 4. **Set Up the Frontend**
    - Navigate to the sveltefrontend directory:
      ```bash
-     cd ../sveltefrontend
+     cd SvelteFrontEnd/newsFrontEnd
      ```
    - Install dependencies (if using a Svelte-based setup):
      ```bash
@@ -94,7 +94,8 @@ Ensure the following are installed on your system:
 5. **Access the Application**
    - Open your browser and navigate to:
      - Backend API: `http://localhost:5000`
-     - Frontend: `http://localhost:3000`
+     - Backend API: `http://localhost:3000`
+     - Frontend: http://localhost:5173/
 
 ---
 
@@ -137,10 +138,13 @@ Ensure the following are installed on your system:
 │   ├── fill_missing_values.py     # Enriches data using OpenAI LLM
 │   ├── push_events_to_pitchload.py # Pushes processed events to Pitchload
 ├── frontend
-│   ├── home                       # Homepage lists events and news
-│   ├── news                       # News page for startup news
-│   ├── map                        # Map view page for startup events
-│   ├── list                       # Lists all StartUp Events
+│   ├── Header  
+│      ├── +Header.svelte          # Header for different sites
+│   ├── Liste  
+│      ├── +page.svelte            # List View for events
+│   ├── map  
+│      ├── +page.svelte            # Map View for events
+│   ├── +page.svelte               # News View for startUp news
 ├── scripts
 │       └── database.py            # Creates and manages database schema
 ├── requirements.txt               # Python dependencies

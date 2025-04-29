@@ -3,10 +3,15 @@ from flask_cors import CORS
 import sqlite3
 import os
 import validators
+#from eventbrite_fetch import main as fetch_eventbrite_data
+#from eventbrite_scraper import scrape_and_show_event_ids as scrape_event_ids
+#from fill_missing_values import fill_missing_values 
+#from push_events_to_pitchload import main as push_events_to_pitchload
 
 # Initialize Flask application
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, methods=["GET", "POST", "DELETE"])
+
 
 # Database file path
 DATABASE = os.path.join(os.path.dirname(__file__), "eventbrite_scraper.db")
